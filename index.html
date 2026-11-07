@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8fc">
+    <title>Connexion | Google KAYOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "DM Sans", sans-serif;
+        color: #17233c;
+        background: #f6f8fc;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        gap: 20px;
+        padding: 32px 20px;
+        background:
+          radial-gradient(ellipse at 12% 16%, #e8efff 0, transparent 34%),
+          radial-gradient(ellipse at 88% 84%, #e7f5f2 0, transparent 32%),
+          #f6f8fc;
+      }
+
+      .login-card {
+        width: min(100%, 440px);
+        padding: 48px 44px 40px;
+        border: 1px solid #e8ecf3;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 24px 70px rgba(32, 54, 91, 0.1);
+        text-align: center;
+      }
+
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 28px;
+        border-radius: 17px;
+        background: #edf3ff;
+        color: #2864dc;
+      }
+
+      .brand-mark svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: #5575b8;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(27px, 7vw, 33px);
+        font-weight: 700;
+        letter-spacing: -0.045em;
+        line-height: 1.2;
+      }
+
+      .description {
+        margin: 14px 0 30px;
+        color: #68758c;
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      .google-button {
+        min-height: 44px;
+        display: flex;
+        justify-content: center;
+      }
+
+      #status {
+        min-height: 22px;
+        margin: 18px 0 0;
+        color: #42634e;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      #status.error {
+        color: #b42318;
+      }
+
+      .security-note {
+        margin: 30px 0 0;
+        padding-top: 21px;
+        border-top: 1px solid #edf0f5;
+        color: #8791a3;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .footer {
+        color: #8791a3;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+
+      @media (max-width: 480px) {
+        .login-card {
+          padding: 40px 24px 32px;
+          border-radius: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="login-card">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 3.5 19 6v5.7c0 4.3-2.9 7.3-7 8.8-4.1-1.5-7-4.5-7-8.8V6l7-2.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="eyebrow">Google KAYOS</p>
+      <h1>Bienvenue</h1>
+      <p class="description">Connectez-vous avec votre compte Google pour continuer.</p>
+      <div id="google-button" class="google-button" aria-label="Se connecter avec Google"></div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p class="security-note">Votre connexion est sécurisée par Google. Vos données restent protégées.</p>
+    </main>
+    <footer class="footer">SAMY KOYOS</footer>
+
+    <script>
+      const clientId = "271337269871-c1pr9b5q6hncnicp5d4sc7h0ka98m7dh.apps.googleusercontent.com";
+      const status = document.getElementById("status");
+
+      function handleGoogleCredential(response) {
+        status.classList.remove("error");
+        status.textContent = response.credential
+          ? "Connexion Google reçue. La validation sécurisée du jeton doit être effectuée par le serveur."
+          : "La connexion n’a pas abouti. Veuillez réessayer.";
+        if (!response.credential) {
+          status.classList.add("error");
+        }
+      }
+
+      function initializeGoogleSignIn() {
+        if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+          status.classList.add("error");
+          status.textContent = "Le service de connexion Google n’est pas disponible. Vérifiez votre connexion puis rechargez la page.";
+          return;
+        }
+
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleCredential
+        });
+        window.google.accounts.id.renderButton(
+          document.getElementById("google-button"),
+          {
+            theme: "outline",
+            size: "large",
+            shape: "pill",
+            text: "signin_with",
+            locale: "fr",
+            width: 280
+          }
+        );
+      }
+
+      window.addEventListener("load", initializeGoogleSignIn);
+    </script>
+  </body>
+</html>
