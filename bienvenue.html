@@ -191,12 +191,32 @@
     </main>
 
     <script>
-      if (window.sessionStorage.getItem("kayosSignedIn") !== "true") {
+      const welcomeUrl = new URL(window.location.href);
+      const signedInFromRedirect = welcomeUrl.searchParams.get("connexion") === "ok";
+      let isSignedIn = signedInFromRedirect;
+
+      try {
+        isSignedIn = isSignedIn || window.sessionStorage.getItem("kayosSignedIn") === "true";
+        if (signedInFromRedirect) {
+          window.sessionStorage.setItem("kayosSignedIn", "true");
+        }
+      } catch (error) {
+        console.error("Impossible d’accéder au stockage de session.", error);
+      }
+
+      if (!isSignedIn) {
         window.location.replace("index.html");
+      } else if (signedInFromRedirect) {
+        welcomeUrl.searchParams.delete("connexion");
+        window.history.replaceState(null, "", welcomeUrl);
       }
 
       document.getElementById("logout").addEventListener("click", () => {
-        window.sessionStorage.removeItem("kayosSignedIn");
+        try {
+          window.sessionStorage.removeItem("kayosSignedIn");
+        } catch (error) {
+          console.error("Impossible d’effacer le stockage de session.", error);
+        }
         if (window.google && window.google.accounts && window.google.accounts.id) {
           window.google.accounts.id.disableAutoSelect();
         }

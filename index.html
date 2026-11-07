@@ -153,8 +153,7 @@
 
       function handleGoogleCredential(response) {
         if (response.credential) {
-          window.sessionStorage.setItem("kayosSignedIn", "true");
-          window.location.assign("bienvenue.html");
+          window.location.assign("bienvenue.html?connexion=ok");
           return;
         }
 
