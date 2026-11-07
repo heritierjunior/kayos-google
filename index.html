@@ -122,101 +122,6 @@
         letter-spacing: 0.08em;
       }
 
-      .success-dialog {
-        width: min(100% - 32px, 410px);
-        padding: 38px 32px 30px;
-        border: 1px solid #e8ecf3;
-        border-radius: 24px;
-        color: #17233c;
-        background: #fff;
-        box-shadow: 0 28px 90px rgba(24, 39, 67, 0.2);
-        text-align: center;
-        animation: dialog-enter 180ms ease-out;
-      }
-
-      .success-dialog::backdrop {
-        background: rgba(23, 35, 60, 0.48);
-        backdrop-filter: blur(5px);
-      }
-
-      .success-icon {
-        width: 58px;
-        height: 58px;
-        display: grid;
-        place-items: center;
-        margin: 0 auto 20px;
-        border: 1px solid #ccebd9;
-        border-radius: 50%;
-        background: #eaf8ef;
-        color: #16834a;
-      }
-
-      .success-icon svg {
-        width: 27px;
-        height: 27px;
-      }
-
-      .success-dialog h2 {
-        margin: 0;
-        font-family: "Manrope", sans-serif;
-        font-size: 25px;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-      }
-
-      .success-dialog p {
-        margin: 12px 0 24px;
-        color: #68758c;
-        font-size: 14px;
-        line-height: 1.65;
-      }
-
-      .success-dialog button {
-        width: 100%;
-        min-height: 46px;
-        border: 0;
-        border-radius: 12px;
-        background: #2864dc;
-        color: #fff;
-        font: inherit;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 150ms ease, transform 150ms ease;
-      }
-
-      .success-dialog button:hover {
-        transform: translateY(-1px);
-        background: #1e53bf;
-      }
-
-      .success-dialog button:focus-visible {
-        outline: 3px solid #9bb9fa;
-        outline-offset: 3px;
-      }
-
-      @keyframes dialog-enter {
-        from {
-          opacity: 0;
-          transform: translateY(8px) scale(0.98);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .success-dialog {
-          animation: none;
-        }
-
-        .success-dialog button {
-          transition: none;
-        }
-      }
-
       @media (max-width: 480px) {
         .login-card {
           padding: 40px 24px 32px;
@@ -242,28 +147,14 @@
     </main>
     <footer class="footer">SAMY KOYOS</footer>
 
-    <dialog id="success-dialog" class="success-dialog" aria-labelledby="success-title">
-      <div class="success-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="m6 12.5 4 4L18.5 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h2 id="success-title">Connexion réussie !</h2>
-      <p>Votre compte Google est connecté. La validation sécurisée sera effectuée avant l’accès aux données protégées.</p>
-      <button id="close-success" type="button">Continuer</button>
-    </dialog>
-
     <script>
       const clientId = "271337269871-c1pr9b5q6hncnicp5d4sc7h0ka98m7dh.apps.googleusercontent.com";
       const status = document.getElementById("status");
-      const successDialog = document.getElementById("success-dialog");
-      const closeSuccess = document.getElementById("close-success");
 
       function handleGoogleCredential(response) {
         if (response.credential) {
-          status.textContent = "";
-          successDialog.showModal();
-          closeSuccess.focus();
+          window.sessionStorage.setItem("kayosSignedIn", "true");
+          window.location.assign("bienvenue.html");
           return;
         }
 
@@ -271,8 +162,6 @@
         status.textContent = "La connexion n’a pas abouti. Veuillez réessayer.";
         status.classList.add("error");
       }
-
-      closeSuccess.addEventListener("click", () => successDialog.close());
 
       function initializeGoogleSignIn() {
         if (!window.google || !window.google.accounts || !window.google.accounts.id) {

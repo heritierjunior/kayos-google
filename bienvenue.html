@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8fc">
+    <title>Accueil | Google KAYOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "DM Sans", sans-serif;
+        color: #17233c;
+        background: #f6f8fc;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 12% 16%, #e8efff 0, transparent 34%),
+          radial-gradient(ellipse at 88% 84%, #e7f5f2 0, transparent 32%),
+          #f6f8fc;
+      }
+
+      .topbar {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 14px max(24px, calc((100% - 1120px) / 2));
+        border-bottom: 1px solid rgba(220, 227, 239, 0.9);
+        background: rgba(255, 255, 255, 0.82);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #17233c;
+        font-family: "Manrope", sans-serif;
+        font-size: 17px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        background: #edf3ff;
+        color: #2864dc;
+      }
+
+      .brand-mark svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .logout-button {
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid #dfe5ef;
+        border-radius: 11px;
+        background: #fff;
+        color: #42516a;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 150ms ease, background 150ms ease;
+      }
+
+      .logout-button:hover {
+        border-color: #b7c5df;
+        background: #f8faff;
+      }
+
+      .logout-button:focus-visible {
+        outline: 3px solid #9bb9fa;
+        outline-offset: 3px;
+      }
+
+      main {
+        width: min(100% - 48px, 1040px);
+        margin: 0 auto;
+        padding: clamp(72px, 14vh, 132px) 0 80px;
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: #5575b8;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(42px, 8vw, 72px);
+        font-weight: 700;
+        letter-spacing: -0.055em;
+        line-height: 1.08;
+      }
+
+      .description {
+        max-width: 560px;
+        margin: 24px 0 0;
+        color: #68758c;
+        font-size: clamp(16px, 2vw, 19px);
+        line-height: 1.7;
+      }
+
+      .welcome-divider {
+        width: 100%;
+        max-width: 1040px;
+        height: 1px;
+        margin-top: 64px;
+        background: #dfe5ef;
+      }
+
+      .welcome-note {
+        margin: 22px 0 0;
+        color: #8791a3;
+        font-size: 14px;
+      }
+
+      @media (max-width: 480px) {
+        .topbar {
+          min-height: 68px;
+          padding: 12px 18px;
+        }
+
+        .brand {
+          font-size: 15px;
+        }
+
+        .logout-button {
+          padding: 0 12px;
+          font-size: 13px;
+        }
+
+        main {
+          width: min(100% - 40px, 1040px);
+          padding-top: 88px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .logout-button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="bienvenue.html" aria-label="Google KAYOS, accueil">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3.5 19 6v5.7c0 4.3-2.9 7.3-7 8.8-4.1-1.5-7-4.5-7-8.8V6l7-2.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Google KAYOS</span>
+      </a>
+      <button id="logout" class="logout-button" type="button">Se déconnecter</button>
+    </header>
+
+    <main>
+      <p class="eyebrow">Google KAYOS</p>
+      <h1>Bienvenue !</h1>
+      <p class="description">Vous êtes connecté. Nous sommes heureux de vous accueillir sur votre espace Google KAYOS.</p>
+      <div class="welcome-divider" aria-hidden="true"></div>
+      <p class="welcome-note">Votre session est active sur cet appareil.</p>
+    </main>
+
+    <script>
+      if (window.sessionStorage.getItem("kayosSignedIn") !== "true") {
+        window.location.replace("index.html");
+      }
+
+      document.getElementById("logout").addEventListener("click", () => {
+        window.sessionStorage.removeItem("kayosSignedIn");
+        if (window.google && window.google.accounts && window.google.accounts.id) {
+          window.google.accounts.id.disableAutoSelect();
+        }
+        window.location.assign("index.html");
+      });
+    </script>
+  </body>
+</html>
